@@ -1,0 +1,4 @@
+format-string = fragment*
+<fragment> = expression | literal
+expression = <"#"> #"[^#]+" <"#">
+literal = #'[^#]+'

@@ -1,0 +1,102 @@
+(node butch-name (one-of "Chesty" "Manley" "Brock" "Stone" "Brick" "Butch" "Bruce"
+                         "Steel" "Saber" "Tex" "Rock" "Drake" "Ace" "Knute" "Wolf"
+                         "Thorax" "Brad" "Abs" "Burt" "Slate" "Bret" "Duke"))
+(node alien-name (one-of "#first-syl##middle-syl##last-syl#"
+                         "#first-syl##last-syl#"
+                         "#first-syl##last-syl#-#first-syl##last-syl#"))
+(node first-syl (one-of (split "B C D F G H J K L M N P Qu R S T V W X Y Z St Fl Bl Pr Kr Ll Chr Sk Br Sth Ch Dhr Dr Sl Sc Sh Thl Thr Pl Fr Phr Phl Wh")))
+(node middle-syl (one-of (split "an all ar art air aean af av ant app ab er en eor eon ent enth irt ian ion iont ill il ipp in is it ik ob ov orb oon ion uk uf un ull urk estr antr okl ackl")))
+(node last-syl (one-of (split "a ia ea u y en am is on an o io i el ios ax ox ix ex izz ius ian ean ekang anth")))
+
+(origin plot
+        (let [mc      (eval butch-name)
+              mc-art  (eval art-form)
+              mc-boss (eval boss)]
+          art-plot))
+
+;;art
+
+(node art-plot
+      (join
+       "#art-demand# 'Yeah, I'll have it done in #short-time#', #mc# promised, hanging up the #communication-device#."
+       " #mc-responded#."
+       " #art-quest#"))
+
+(node art-demand
+      (one-of
+       "'Your #mc-art# is late, #mc#', shrieked #mc-boss# over the #communication-device#."
+       "'I need that #mc-art# by #short-time#' yelled #mc-boss#."
+       (join
+        "'Where's the #mc-art#, #mc#? You promised it'd be finished by last #first-syl##middle-syl#sday,'"
+        " #mc-boss#'s voice came through the #communication-device#.")))
+
+(node art-quest
+      (let [mc-destination        (eval alien-name)
+            mc-destination-system (eval alien-name)]
+        (join
+         "The only thing that could really, I mean really, inspire a #mc-art# would be the famously #sexy# #(plural occupation)#"
+         " of Planet #mc-destination# and for that, he'd have to go to the #mc-destination-system# system. #travel-plot#")))
+
+(node art-form
+      (one-of
+       "prisma#art-form-basic#"
+       "holo#art-form-basic#"
+       "photo#art-form-basic#"
+       "hyper#art-form-basic#"))
+
+(node art-form-basic (one-of "novel" "sculpture" "film" "painting" "poem" "play"))
+
+(node boss "#vip-title# #alien-name#")
+
+(node vip-title (one-of "Vice President" "Mr." "Detective" "Senator" "Chairman"
+                        "Princess" "Lord" "Lady" "Professor" "Grand Inquisistor"
+                        "High Priest" "President"))
+
+;;travel
+
+(node travel-plot
+      (join
+       "#mc# punched '#mc-destination-system#' into the #communication-device#."
+       " There was still one ticket left on the #transport-system#,"
+       " but he'd have to take a #transport-system# the rest of the way to Planet #mc-destination#.'"))
+
+(node transport-system
+      (one-of "#scienceBlargleStart##transitPlain#"
+              "#transitMod# #scienceBlargleStart# #transitPlain#"))
+
+(node transit-mod (one-of "nonstop" "express" "commuter" "prismatic" "red-eye" "pneumatic" "crosstown"))
+
+(node transit-plain (one-of "bus" "plane" "jet" "tram" "rail" "tube" "beam"))
+
+(node mc-responded (one-of "'That was unexpected,' #mc# said."
+                           "#mc# shrugged #conversationally#"
+                           "#mc# sighed #conversationally#"))
+
+(node conversationally (one-of "expressively" "noncommitally" "with relief" "dispassionately"))
+
+(node short-time (one-of "in a sec"
+                         "right now"
+                         "two clicks"
+                         "a moment's time"
+                         "the blink of an eye"
+                         "no time at all"
+                         "the time it takes a single unstable #physics-particle# to #science-verb#"
+                         "#first-syl##middle-syl#sday"))
+
+(node communication-device (one-of "#physics-particle#-transmitter"
+                                   "#science-blargle-start#phone"
+                                   "#science-blargle-start#pager"
+                                   "#science-blargle-start#beeper"
+                                   "#science-blargle-start#view"
+                                   "#science-blargle-start#scope"
+                                   "#science-blargle-start#cam"))
+(node science-blargle-start (one-of "holo" "hyper" "transmuto" "digi" "nano" "electro" "transma" "magna"))
+(node science-verb (one-of "evaporate" "decay" "phase-shift" "teleport" "destabilize" "sublimate"))
+(node physics-particle (one-of "quark" "photon" "lepton" "muon"))
+
+(node occupation (one-of "lumberjack" "firefighter" "scientist" "spy" "wizard" "radio broadcaster" "smuggler"
+                         "mechanic" "astronaut" "adventurer" "pirate" "cowboy" "vampire" "detective" "soldier"
+                         "marine" "doctor" "ninja" "waitress" "burlesque dancer" "ballerina" "opera singer"
+                         "gogo dancer" "rollerskater"))
+(node sexy (one-of "muscled" "sexy" "dark" "well-dressed" "masculine" "dramatic" "dramatically lit" "boyish"
+                   "burly" "handsome" "erotic" "many-bossomed" "supple" "nude"))
